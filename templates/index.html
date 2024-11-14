@@ -8,11 +8,23 @@
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="predataect" href="https://fonts.googleapis.com">
+<link rel="predataect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Статистика сервера</h1>
     <canvas id="myChart" width="400" height="200"></canvas>
+    <div class="row_statistic">
+        <p id="bytes_sent"></p>
+        <p id="bytes_recv"></p>
+        
+    </div>
+    <p id="dataections"></p>
     <script>
+        const sent = document.getElementById('bytes_sent')
+        const recv = document.getElementById('bytes_recv')
+        const dataections = document.getElementById('dataections')
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'line',
@@ -45,12 +57,24 @@
                 myChart.data.labels.shift();
                 myChart.data.datasets[0].data.shift();
                 myChart.data.datasets[1].data.shift();
+                // myChart.data.datasets[2].data.shift();
+                // myChart.data.datasets[].data.shift();
             }
             myChart.data.labels.push('');
-            myChart.data.datasets[0].data.push(data.cpu);
-            myChart.data.datasets[1].data.push(data.memory);
-            myChart.update();
+            myChart.data.datasets[0].data.push(data.cpu); // Данные CPU
+            myChart.data.datasets[1].data.push(data.memory); // Данные памяти
+            // myChart.data.datasets[2].data.push(data.bytes_sent); // Данные отправленных байтов
+            // myChart.data.datasets[3].data.push(data.bytes_recv); // Данны
+                    myChart.update();
+        sent.innerHTML = "bytes_sent: "+data.bytes_sent
+        recv.innerHTML = "bytes_recv: "+data.bytes_recv
+        dataections.innerHTML='<h2>Соединения: '+data.lenght_conn+'</h2>'
+        data.conn.forEach(element => {
+            dataections.innerHTML += `<p class="row_data">Локальный адрес: ${element.local_address}, Удаленный адрес: ${element.remote_address}, Статус: ${element.status}, PID: ${element.pid}</p>`;
         });
+        
+        console.log(data.conn)
+    });
     </script>
 </body>
 </html>

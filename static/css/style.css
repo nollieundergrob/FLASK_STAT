@@ -2,4 +2,38 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Rubik';
+}
+
+
+#myChart{
+    width: 400px;
+    height: 200px;
+}
+.row_statistic{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.row_statistic *{
+    padding: 30px;
+    background-color: #222222;
+    color: #fff;
+    border-radius: 30px;
+
+}
+#dataections{
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 1000px; 
+    overflow: auto;
+}
+.row_data{
+    margin-top: 10px;
+    background-color:#ededed;
+    border-radius: 5px;
+    padding: 5px;
 }
